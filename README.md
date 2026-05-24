@@ -14,11 +14,52 @@ The task is to simulate a robot with autonomous driving with additional capabili
 ## How to use this project repository
 
 1. Change directory to $USER's home folder and clone the repo
-```bash
-cd;
-git clone https://github.com/barnus877/ros2-sign-recognition;
-```
+   ```bash
+   cd;
+   git clone https://github.com/barnus877/ros2-sign-recognition;
+   ```
 2. To run the project paste the following code into the terminal
-```bash
-cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
-```
+   ```bash
+   cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
+   ```
+
+## How to use Gazebo simulation
+
+### Add objects to the world
+
+1. Run the project.
+2. In Gazebo GUI click the 3 dots (`6`) on the top right corner.
+   ![alt text](https://raw.githubusercontent.com/MOGI-ROS/Week-1-8-Cognitive-robotics/main/assets/gazebo-1.png)
+3. Add models through the `Resource Spawner` within the `plug-in browser`.
+4. Select folder: `~/ros2-sign-recognition/install/sign_recognition_bringup/share/sign_recognition_bringup/gazebo_models/`
+   ![alt text](https://raw.githubusercontent.com/MOGI-ROS/Week-1-8-Cognitive-robotics/main/assets/gazebo-2.png)
+
+### How to save world.sdf file
+
+1. Replace all `file:///home/$USER/ros2-sign-recognition/install/sign_recognition_bringup/share/sign_recognition_bringup/gazebo_models/`
+   ```bash
+   <include>
+     <uri>file:///home/$USER/ros2-sign-recognition/install/sign_recognition_bringup/share/sign_recognition_bringup/gazebo_models/palya_mogi</uri>
+     <name>palya</name>
+     <pose>-1.2731360914953953 0.024185007175546058 0 0 0 0</pose>
+   </include>
+   ```
+   with relative path `model://`
+   ```bash
+   <include>
+     <uri>model://palya_mogi</uri>
+     <name>palya</name>
+     <pose>-1.2731360914953953 0.024185007175546058 0 0 0 0</pose>
+   </include>
+   ```
+
+2. Delete `turtlebot3_burger`
+   ```bash
+   <include>
+          <uri>file:///home/$USER/ros2_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/turtlebot3_burger</uri>
+       <name>burger</name>
+       <pose>4.1577145665028317 2.4008829921053554 0.010008771952750758 6.9807543737599483e-07 -0.012459121963041841 1.   3190277154170922</pose>
+   </include>
+   ```
+
+
