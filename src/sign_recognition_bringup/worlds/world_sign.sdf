@@ -20,12 +20,7 @@
       <shadows>true</shadows>
     </scene>
     <include>
-      <uri>file:///home/saserq/ros2_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/turtlebot3_burger</uri>
-      <name>burger</name>
-      <pose>-1.2175526468176779e-15 12.300000000000001 -60.476320799997893 -3.582862006357472e-21 5.693643762195143e-14 -5.3827863120986319e-20</pose>
-    </include>
-    <include>
-      <uri>file:///home/saserq/ros2-sign-recognition/install/sign_recognition_bringup/share/sign_recognition_bringup/gazebo_models/palya</uri>
+      <uri>model://palya</uri>
       <name>palya</name>
       <pose>-1.2731360914953953 0.024185007175546058 0 0 0 0</pose>
     </include>
