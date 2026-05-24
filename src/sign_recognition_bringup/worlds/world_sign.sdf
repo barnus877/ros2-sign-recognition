@@ -20,7 +20,7 @@
       <shadows>true</shadows>
     </scene>
     <include>
-      <uri>model://palya</uri>
+      <uri>model://palya_mogi</uri>
       <name>palya</name>
       <pose>-1.2731360914953953 0.024185007175546058 0 0 0 0</pose>
     </include>
