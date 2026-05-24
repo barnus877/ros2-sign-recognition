@@ -62,4 +62,12 @@ The task is to simulate a robot with autonomous driving with additional capabili
    </include>
    ```
 
+### Update launch file
 
+In `src/sign_recognition_bringup/launch/world_teleopt.launch.py` update `world_sign.sdf` with the newly created `.sdf` file.
+```bash
+world_arg = DeclareLaunchArgument(
+    'world', default_value='world_sign.sdf',
+    description='Name of the Gazebo world file to load'
+)
+```
