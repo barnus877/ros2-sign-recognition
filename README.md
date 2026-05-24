@@ -9,6 +9,6 @@ mkdir -p projekt;
 cd projekt;
 git clone https://github.com/barnus877/ros2-sign-recognition;
 
-cd ~/projekt && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
+cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
 
 ros2 run sign_recognition_py helloka_py
