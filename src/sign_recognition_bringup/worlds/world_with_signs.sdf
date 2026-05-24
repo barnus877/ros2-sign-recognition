@@ -24,31 +24,103 @@
       <name>palya</name>
       <pose>-1.2731360914953953 0.024185007175546058 0 0 0 0</pose>
     </include>
+
+
+
     <include>
       <uri>model://no_limit</uri>
-      <name>limit_no</name>
+      <name>limit_no_1</name>
       <pose>0.2687518298625946 -0.58459538221359253 0 0 0 1.8473700566728293</pose>
     </include>
     <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_2</name>
+      <pose>-1.8 3.92 0 0 0 -1</pose>
+    </include>
+    <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_3</name>
+      <pose>-0.537038 -3.92255 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_4</name>
+      <pose>-4.88 1.88 0 0 0 1.57</pose>
+    </include>
+    <include>
       <uri>model://lakott_terulet</uri>
-      <name>lived_place</name>
+      <name>lived_place_1</name>
       <pose>-3.1570208072662354 -0.57360243797302246 0 0 0 0.89997196067725094</pose>
     </include>
     <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_2</name>
+      <pose>2.6 6.68 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_3</name>
+      <pose>-6.07295 5.72203 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_4</name>
+      <pose>4.5648 7.27 0 0 0 1.57</pose>
+    </include>
+    <include>
       <uri>model://5_tube</uri>
-      <name>limit_5</name>
-      <pose>-2.8641691207885742 -0.3892231285572052 0 0 0 -1.9784300162340074</pose>
+      <name>limit_5_1</name>
+      <pose>-2.8641691207885742 -1.25 0 0 0 -1.3</pose>
+    </include>
+    <include>
+      <uri>model://5_tube</uri>
+      <name>limit_5_2</name>
+      <pose>1.05 5.21556 0 0 0 -2.7</pose>
+    </include>
+    <include>
+      <uri>model://5_tube</uri>
+      <name>limit_5_3</name>
+      <pose>-5.88239 3.01337 0 0 0 1.57</pose>
     </include>
     <include>
       <uri>model://10_tube</uri>
-      <name>limit_10</name>
+      <name>limit_10_1</name>
       <pose>2.6427559852600098 -0.80322873592376709 0 0 0 1.2591699795972975</pose>
     </include>
     <include>
+      <uri>model://10_tube</uri>
+      <name>limit_10_2</name>
+      <pose>-2.6689 6.21 0 0 0 -1</pose>
+    </include>
+    <include>
+      <uri>model://10_tube</uri>
+      <name>limit_10_3</name>
+      <pose>3.36847 -5.26 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <uri>model://10_tube</uri>
+      <name>limit_10_4</name>
+      <pose>-6.20244 .3.05113 0 0 0 -0.8</pose>
+    </include>
+    <include>
       <uri>model://40_tube</uri>
-      <name>40_limit</name>
+      <name>40_limit_1</name>
       <pose>3.9779601097106934 2.0867600440979004 0 0 0 -2.9120335788459659</pose>
     </include>
+    <include>
+      <uri>model://40_tube</uri>
+      <name>40_limit_2</name>
+      <pose>-1.02822 -6.855 0 0 0 -1.57</pose>
+    </include>
+    <include>
+      <uri>model://40_tube</uri>
+      <name>40_limit_3</name>
+      <pose>-4.80599 -1.42458 0 0 0 3.14</pose>
+    </include>
+    
+
+    
+
     <light name='sun' type='directional'>
       <pose>0 0 10 0 0 0</pose>
       <cast_shadows>true</cast_shadows>

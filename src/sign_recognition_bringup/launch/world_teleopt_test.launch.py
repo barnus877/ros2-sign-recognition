@@ -41,45 +41,18 @@ def generate_launch_description():
         description='Flag to enable use_sim_time'
     )
 
-    x_pose_arg = DeclareLaunchArgument(
-        'x_pose', default_value='-1.5',
-        description='x coordinate of spawned robot'
-    )
-
-    y_pose_arg = DeclareLaunchArgument(
-        'y_pose', default_value='-0.67',
-        description='y coordinate of spawned robot'
-    )
-
-    z_pose_arg = DeclareLaunchArgument(
-        'z_pose', default_value='1.05',
-        description='z coordinate of spawned robot'
-    )
-
-    yaw_angle_arg = DeclareLaunchArgument(
-        'yaw_angle', default_value='0.0',
-        description='yaw angle of spawned robot'
-    )
-
     world_arg = DeclareLaunchArgument(
         'world', default_value='world_with_signs.sdf',
         description='Name of the Gazebo world file to load'
     )
 
-    rviz_launch_arg = DeclareLaunchArgument(
-        'rviz', default_value='true',
-        description='Open RViz'
-    )
-
-    rviz_config_arg = DeclareLaunchArgument(
-        'rviz_config', default_value='turtlebot3_line_follower.rviz',
-        description='RViz config file'
-    )
 
     set_env_vars_resources = AppendEnvironmentVariable(
             'GZ_SIM_RESOURCE_PATH',
             os.path.join(get_package_share_directory('turtlebot3_gazebo'),
                          'models'))
+
+
 
     gazebo_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -95,58 +68,18 @@ def generate_launch_description():
         'on_exit_shutdown': 'true'}.items()
     )
 
-    robot_state_publisher_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'robot_state_publisher.launch.py')
-        ),
-        launch_arguments={'use_sim_time': LaunchConfiguration('use_sim_time')}.items()
-    )
 
-    spawn_turtlebot_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
-        ),
-        launch_arguments={
-            'x_pose': LaunchConfiguration('x_pose'),
-            'y_pose': LaunchConfiguration('y_pose'),
-            'z_pose': LaunchConfiguration('z_pose'),
-            'yaw_angle': LaunchConfiguration('yaw_angle'),
-        }.items()
-    )
-
-    # Launch rviz
-    rviz_node = Node(
-        package='rviz2',
-        executable='rviz2',
-        arguments=['-d', PathJoinSubstitution([pkg_sign_recognition, 'rviz', LaunchConfiguration('rviz_config')])],
-        condition=IfCondition(LaunchConfiguration('rviz')),
-        parameters=[
-            {'use_sim_time': LaunchConfiguration('use_sim_time')},
-        ]
-    )
-
-    trajectory_node = Node(
-        package='mogi_trajectory_server',
-        executable='mogi_trajectory_server',
-        name='mogi_trajectory_server',
-    )
 
     ld = LaunchDescription()
 
     # Add the commands to the launch description
     ld.add_action(sim_time_arg)
-    ld.add_action(x_pose_arg)
-    ld.add_action(y_pose_arg)
-    ld.add_action(z_pose_arg)
-    ld.add_action(yaw_angle_arg)
+
     ld.add_action(world_arg)
-    ld.add_action(rviz_launch_arg)
-    ld.add_action(rviz_config_arg)
+
     ld.add_action(set_env_vars_resources)
+
     ld.add_action(gazebo_cmd)
-    ld.add_action(robot_state_publisher_cmd)
-    ld.add_action(spawn_turtlebot_cmd)
-    ld.add_action(rviz_node)
-    ld.add_action(trajectory_node)
+
 
     return ld
