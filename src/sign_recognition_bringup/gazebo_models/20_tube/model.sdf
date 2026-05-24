@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <sdf version="1.8">
-  <model name="5_tube">
+  <model name="20_limit">
     <static>true</static>
     <link name="link">
       <inertial>
