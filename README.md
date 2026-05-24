@@ -11,9 +11,14 @@ This is a ROS2 project for the Cognitive Robotics Laboratory course of the Mecha
 
 The task is to simulate a robot with autonomous driving with additional capabilities of sign or pedestrian recognition.
 
+## How to use this project repository
+
+1. Change directory to $USER's home folder and clone the repo
+```bash
 cd;
 git clone https://github.com/barnus877/ros2-sign-recognition;
-
+```
+2. To run the project paste the following code into the terminal
+```bash
 cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
-
-ros2 run sign_recognition_py helloka_py
+```
