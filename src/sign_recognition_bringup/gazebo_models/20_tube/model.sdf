@@ -17,7 +17,7 @@
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://meshes/5_tube.glb</uri>
+            <uri>model://meshes/20_tube.glb</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -25,7 +25,7 @@
       <collision name="collision">
         <geometry>
           <mesh>
-            <uri>model://meshes/5_tube.glb</uri>
+            <uri>model://meshes/20_tube.glb</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
