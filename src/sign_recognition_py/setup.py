@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'helloka_py = sign_recognition_py.hello_py:main',
+            'save_training_images = sign_recognition_py.save_training_images:main',
         ],
     },
 )
