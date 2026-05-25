@@ -26,6 +26,8 @@ setup(
         'console_scripts': [
             'helloka_py = sign_recognition_py.hello_py:main',
             'save_training_images = sign_recognition_py.save_training_images:main',
+            'line_follower = sign_recognition_py.line_follower:main',
+            'line_follower_cnn = sign_recognition_py.line_follower_cnn:main'
         ],
     },
 )
