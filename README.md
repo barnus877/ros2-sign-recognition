@@ -7,7 +7,7 @@ If everything done as sad, then the commands written later work as intended (for
 
 # ros2-sign-recognition #
 
-This is a ROS2 project for the Cognitive Robotics Laboratory course of the Mechatronics Engineering MSc of the Budapest University of Technology and Economics created by József Ferenczi, Mór Sas, Máté Horváth and Barnabás Szabó.
+This is a ROS2 project for the Cognitive Robotics Laboratory course of the Mechatronics Engineering MSc of the Budapest University of Technology and Economics created by József Ferenczi, Mór Sas, Máté Horváth, Barnabás Szabó and Dániel Sándor.
 
 The task is to simulate a robot with autonomous driving with additional capabilities of sign or pedestrian recognition.
 
@@ -71,3 +71,13 @@ world_arg = DeclareLaunchArgument(
     description='Name of the Gazebo world file to load'
 )
 ```
+
+## How to start the line following algorithm
+
+1. Run the project according to the description above: [How to use this project repository](#how-to-use-this-project-repository)
+
+2. Paste the following code into a new terminal
+   ```bash
+   cd ~/ros2-sign-recognition && source install/setup.bash && ros2 run sign_recognition_py line_follower
+   ```
+   
