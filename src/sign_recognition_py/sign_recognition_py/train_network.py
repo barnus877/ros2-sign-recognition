@@ -144,7 +144,7 @@ BS      = 32
 
 # initialize the model
 print("[INFO] compiling model...")
-model = build_compact_cnn(width=IMAGE_SIZE, height=IMAGE_SIZE, depth=1, classes=6)
+model = build_compact_cnn(width=IMAGE_SIZE, height=IMAGE_SIZE, depth=3, classes=6)
 opt = Adam(learning_rate=INIT_LR)
 model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
  

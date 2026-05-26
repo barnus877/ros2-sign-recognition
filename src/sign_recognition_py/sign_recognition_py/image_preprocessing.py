@@ -19,36 +19,30 @@ def preprocess_image(image):
 
     Pipeline
     --------
-    1. Crop the upper-right corner square (side = half the image height).
+    1. Crop the upper-right quadrant.
        All road signs are located in that region.
-    2. Convert to grayscale (single-channel black & white).
-    3. Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
-       to enhance local contrast in the predominantly gray scene.
-    4. Resize to the fixed network input size (``IMAGE_SIZE``).
+    2. Keep in color (BGR/RGB) instead of grayscale so that the neural
+       network can distinguish red rings of signs from the gray environment.
+    3. Resize to the fixed network input size (``IMAGE_SIZE``).
 
     Returns
     -------
     numpy.ndarray
-        Float32 array of shape ``(IMAGE_SIZE, IMAGE_SIZE, 1)`` with pixel
+        Float32 array of shape ``(IMAGE_SIZE, IMAGE_SIZE, 3)`` with pixel
         values in [0, 1].
     """
     h, w = image.shape[:2]
-    square_side = h // 2
 
-    # Crop upper-right corner: square of size (square_side x square_side)
-    x_start = w - square_side
+    # Crop upper-right quadrant
+    # Signs are generally in the top-right quarter of the image
     y_start = 0
-    cropped = image[y_start:y_start + square_side, x_start:x_start + square_side]
-
-    # Convert to grayscale
-    gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
-
-    # CLAHE directly on the single-channel grayscale image
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    equalized = clahe.apply(gray)
+    y_end = h // 2
+    x_start = w // 2
+    x_end = w
+    cropped = image[y_start:y_end, x_start:x_end]
 
     # Resize to the fixed network input size
-    resized = cv2.resize(equalized, (IMAGE_SIZE, IMAGE_SIZE))
+    resized = cv2.resize(cropped, (IMAGE_SIZE, IMAGE_SIZE))
 
-    # img_to_array on a 2D grayscale image yields (H, W, 1)
+    # img_to_array yields (H, W, 3) for RGB/BGR
     return img_to_array(resized) / 255.0
