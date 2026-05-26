@@ -19,7 +19,7 @@ class ImageSubscriber(Node):
             1  # Queue size of 1
         )
 
-        self.save_path = "/home/horvm/ros2-sign-recognition/src/sign_recognition_py/saved_images/"
+        self.save_path = "/home/joe/ros2-sign-recognition/src/sign_recognition_py/saved_images/"
         
         # Initialize CvBridge
         self.bridge = CvBridge()

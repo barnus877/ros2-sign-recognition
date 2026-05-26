@@ -13,12 +13,15 @@ The task is to simulate a robot with autonomous driving with additional capabili
 
 ## How to use this project repository
 
-1. Change directory to $USER's home folder and clone the repo
+1. Change directory to `$USER`'s home folder and clone the repo
+   
    ```bash
    cd;
    git clone https://github.com/barnus877/ros2-sign-recognition;
    ```
+
 2. To run the project paste the following code into the terminal
+   
    ```bash
    cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
    ```
@@ -37,6 +40,7 @@ The task is to simulate a robot with autonomous driving with additional capabili
 ### How to save world.sdf file
 
 1. Replace all `file:///home/$USER/ros2-sign-recognition/install/sign_recognition_bringup/share/sign_recognition_bringup/gazebo_models/`
+   
    ```bash
    <include>
      <uri>file:///home/$USER/ros2-sign-recognition/install/sign_recognition_bringup/share/sign_recognition_bringup/gazebo_models/palya_mogi</uri>
@@ -54,6 +58,7 @@ The task is to simulate a robot with autonomous driving with additional capabili
    ```
 
 2. Delete `turtlebot3_burger`
+   
    ```bash
    <include>
           <uri>file:///home/$USER/ros2_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/turtlebot3_burger</uri>
@@ -65,6 +70,7 @@ The task is to simulate a robot with autonomous driving with additional capabili
 ### Update launch file
 
 In `src/sign_recognition_bringup/launch/world_teleopt.launch.py` update `world_sign.sdf` with the newly created `.sdf` file.
+
 ```bash
 world_arg = DeclareLaunchArgument(
     'world', default_value='world_sign.sdf',
@@ -80,4 +86,30 @@ world_arg = DeclareLaunchArgument(
    ```bash
    cd ~/ros2-sign-recognition && source install/setup.bash && ros2 run sign_recognition_py line_follower
    ```
-   
+
+## Save training images
+
+Run the `save_training_images` node that can save training images by pressing the `s` key, but before that, make sure that `self.save_path` is set to your own directory by changing `$USER` in the node:
+
+```python
+class ImageSubscriber(Node):
+    def __init__(self):
+        super().__init__('image_subscriber')
+
+        self.subscription = self.create_subscription(
+            CompressedImage,
+            'image_raw/compressed',  # Replace with your topic name
+            self.image_callback,
+            1  # Queue size of 1
+        )
+
+        self.save_path = "/home/$USER/ros2-sign-recognition/src/sign_recognition_py/saved_images/"
+```
+
+If the path is set up correctly we can run the node:
+
+```bash
+ros2 run sign_recognition_py save_training_images
+```
+
+
