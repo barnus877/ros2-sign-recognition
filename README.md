@@ -104,14 +104,9 @@ class ImageSubscriber(Node):
         self.save_path = "/home/$USER/ros2-sign-recognition/src/sign_recognition_py/saved_images/"
 ```
 
-If the path is set up correctly we can build and source the project:
+If the path is set up correctly we can build, source the project and run the node:
 ```bash
-cd ~/ros2-sign-recognition && colcon build && source install/setup.bash
-```
-
-and we can run the node:
-```bash
-ros2 run sign_recognition_py save_training_images
+cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 run sign_recognition_py save_training_images
 ```
 
 # Neural network
@@ -130,8 +125,7 @@ There is a simple python training script in the package, called `train_network.p
 First, navigate to the right folder then run the script:
 
 ```bash
-cd ~/ros2-sign-recognition/src/sign_recognition_py/sign_recognition_py/
-python train_network.py
+cd ~/ros2-sign-recognition/src/sign_recognition_py/sign_recognition_py/ && python train_network.py
 ```
 
 Let's see the results:
