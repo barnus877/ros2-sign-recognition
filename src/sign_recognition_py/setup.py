@@ -10,6 +10,10 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/network_model',
+            ['network_model/model.best.keras',
+             'network_model/model.keras',
+             'network_model/model_training.png']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -26,7 +30,8 @@ setup(
         'console_scripts': [
             'save_training_images = sign_recognition_py.save_training_images:main',
             'line_follower = sign_recognition_py.line_follower:main',
-            'line_follower_cnn = sign_recognition_py.line_follower_cnn:main'
+            'line_follower_cnn = sign_recognition_py.line_follower_cnn:main',
+            'sign_recogniser = sign_recognition_py.sign_recogniser_cnn:main',
         ],
     },
 )

@@ -1,7 +1,6 @@
 # import the necessary packages
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Activation, Flatten, Dense, Conv2D, MaxPooling2D, Input, Dropout
-from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.layers import Activation, Flatten, Dense, Conv2D, MaxPooling2D, Input, Dropout, BatchNormalization, GlobalAveragePooling2D
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.optimizers.schedules import ExponentialDecay
 from tensorflow.keras.callbacks import ReduceLROnPlateau, ModelCheckpoint
@@ -20,8 +19,7 @@ import os
 import matplotlib.pyplot as plt
 from numpy.random import seed
 
-# Set image size
-image_size = 24
+from image_preprocessing import preprocess_image, IMAGE_SIZE
 
 config = ConfigProto()
 config.gpu_options.allow_growth = True
@@ -37,43 +35,56 @@ print("Tensorflow version: %s" % tf.__version__)
 keras_version = str(keras_version).encode('utf8')
 print("Keras version: %s" % keras_version)
 
-def build_LeNet(width, height, depth, classes):
-    # initialize the model
+
+def build_compact_cnn(width, height, depth, classes):
+    """
+    Compact CNN optimized for 6-class road-sign recognition.
+    Uses GlobalAveragePooling instead of a giant Flatten→Dense stack
+    to drastically reduce parameters (~150k total vs ~25M before).
+    BatchNormalization speeds up convergence and adds mild regularisation.
+    """
     model = Sequential()
     inputShape = (height, width, depth)
 
-    # After Keras 2.3 we need an Input layer instead of passing it as a parameter to the first layer
     model.add(Input(inputShape))
 
-    # first set of CONV => RELU => POOL layers
-    model.add(Conv2D(20, (5, 5), padding="same"))
+    # Block 1: 32 filters
+    model.add(Conv2D(32, (3, 3), padding="same"))
+    model.add(BatchNormalization())
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-
-    # Optional Dropout after first pool (small value)
     model.add(Dropout(0.25))
 
-    # second set of CONV => RELU => POOL layers
-    model.add(Conv2D(50, (5, 5), padding="same"))
+    # Block 2: 64 filters
+    model.add(Conv2D(64, (3, 3), padding="same"))
+    model.add(BatchNormalization())
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-
-    # Optional Dropout again
     model.add(Dropout(0.25))
 
-    # first (and only) set of FC => RELU layers
-    model.add(Flatten())
-    model.add(Dense(500))
+    # Block 3: 128 filters
+    model.add(Conv2D(128, (3, 3), padding="same"))
+    model.add(BatchNormalization())
     model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(Dropout(0.25))
 
-    # Dropout after fully connected (higher value)
+    # Block 4: 256 filters → GlobalAveragePooling collapses spatial dims
+    model.add(Conv2D(256, (3, 3), padding="same"))
+    model.add(BatchNormalization())
+    model.add(Activation("relu"))
+    model.add(GlobalAveragePooling2D())
+    model.add(Dropout(0.4))
+
+    # Small fully-connected head
+    model.add(Dense(64))
+    model.add(Activation("relu"))
     model.add(Dropout(0.5))
 
-    # softmax classifier
+    # Softmax classifier
     model.add(Dense(classes))
     model.add(Activation("softmax"))
 
-    # return the constructed network architecture
     return model
 
     
@@ -88,35 +99,41 @@ imagePaths = sorted(list(paths.list_images(dataset)))
 random.shuffle(imagePaths)
 # loop over the input images
 for imagePath in imagePaths:
-    # load the image, pre-process it, and store it in the data list
+    # load the image, pre-process it (crop upper-right corner + CLAHE), and store it
     image = cv2.imread(imagePath)
-    image = cv2.resize(image, (image_size, image_size))
-    image = img_to_array(image)
+    if image is None:
+        print("[WARN] Could not read %s — skipping" % imagePath)
+        continue
+    image = preprocess_image(image)
     data.append(image)
     # extract the class label from the image path and update the
     # labels list
     label = imagePath.split(os.path.sep)[-2]
     print("Image: %s, Label: %s" % (imagePath, label))
-    if label == 'forward':
+    if label == 'limit_5':
         label = 0
-    elif label == 'right':
+    elif label == 'limit_40':
         label = 1
-    elif label == 'left':
+    elif label == 'limit_no':
         label = 2
-    else:
+    elif label == 'lived_place':
         label = 3
+    elif label == 'no_sign':
+        label = 4
+    else:
+        label = 5
     labels.append(label)
     
     
-# scale the raw pixel intensities to the range [0, 1]
-data = np.array(data, dtype="float") / 255.0
+# preprocess_image already returns float32 data in [0, 1]
+data = np.array(data, dtype="float32")
 labels = np.array(labels)
  
 # partition the data into training and testing splits using 75% of
 # the data for training and the remaining 25% for testing
 (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.25, random_state=42)# convert the labels from integers to vectors
-trainY = to_categorical(trainY, num_classes=4)
-testY = to_categorical(testY, num_classes=4)
+trainY = to_categorical(trainY, num_classes=6)
+testY = to_categorical(testY, num_classes=6)
 
 
 # initialize the number of epochs to train for, initial learning rate,
@@ -127,9 +144,9 @@ BS      = 32
 
 # initialize the model
 print("[INFO] compiling model...")
-model = build_LeNet(width=image_size, height=image_size, depth=3, classes=4)
+model = build_compact_cnn(width=IMAGE_SIZE, height=IMAGE_SIZE, depth=1, classes=6)
 opt = Adam(learning_rate=INIT_LR)
-model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
  
 # print model summary
 model.summary()
