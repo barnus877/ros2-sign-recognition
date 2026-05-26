@@ -1,0 +1,142 @@
+<sdf version='1.10'>
+  <world name='test_zone'>
+    <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <gravity>0 0 -9.8000000000000007</gravity>
+    <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <include>
+      <uri>model://palya_mogi</uri>
+      <name>palya</name>
+      <pose>-1.2731360914953953 0.024185007175546058 1 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_1</name>
+      <pose>0.37075027823448181 -0.88318687677383423 1 0 0 1.3448199807946508</pose>
+    </include>
+    <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_2</name>
+      <pose>-1.7729799747467041 3.8779199123382568 1 0 0 -1.2304588436553532</pose>
+    </include>
+    <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_3</name>
+      <pose>-0.53700202703475952 -3.9672698974609375 1 0 0 -1.8215837726105073</pose>
+    </include>
+    <include>
+      <uri>model://no_limit</uri>
+      <name>limit_no_4</name>
+      <pose>-4.8799467086791992 1.9473245143890381 1 0 0 1.5700000042340219</pose>
+    </include>
+    <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_1</name>
+      <pose>-3.1372406482696533 -0.54867815971374512 1 0 0 0.89997196067725094</pose>
+    </include>
+    <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_2</name>
+      <pose>2.599790096282959 6.9447598457336426 1 0 0 -2.0010982308885188</pose>
+    </include>
+    <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_3</name>
+      <pose>-6.3463492393493652 5.7378954887390137 1 0 0 -0.60838799532869392</pose>
+    </include>
+    <include>
+      <uri>model://lakott_terulet</uri>
+      <name>lived_place_4</name>
+      <pose>4.5690584182739258 7.3795037269592285 1 0 0 1.2516100177304932</pose>
+    </include>
+    <include>
+      <uri>model://5_tube</uri>
+      <name>limit_5_1</name>
+      <pose>-2.956073522567749 -0.9156525731086731 1 0 0 -1.7458799807801535</pose>
+    </include>
+    <include>
+      <uri>model://5_tube</uri>
+      <name>limit_5_2</name>
+      <pose>1.05 5.21556 1 0 0 -2.7000000000000002</pose>
+    </include>
+    <include>
+      <uri>model://5_tube</uri>
+      <name>limit_5_3</name>
+      <pose>-5.882390022277832 3.0133700370788574 1 0 0 1.4683890276181815</pose>
+    </include>
+    <include>
+      <uri>model://stop_tube</uri>
+      <name>stop_1</name>
+      <pose>2.6427559852600098 -0.80322873592376709 1 0 0 1.2591699795972975</pose>
+    </include>
+    <include>
+      <uri>model://stop_tube</uri>
+      <name>stop_2</name>
+      <pose>-2.8038270473480225 6.4094400405883789 1 0 0 -1.4033400466700807</pose>
+    </include>
+    <include>
+      <uri>model://stop_tube</uri>
+      <name>stop_3</name>
+      <pose>3.3625211715698242 -5.0339407920837402 1 0 0 -2.0568100209916129</pose>
+    </include>
+    <include>
+      <uri>model://stop_tube</uri>
+      <name>stop_4</name>
+      <pose>-6.7599444389343262 -7.4502606391906738 1 0 0 -1.5700000042340219</pose>
+    </include>
+    <include>
+      <uri>model://stop_tube</uri>
+      <name>stop_5</name>
+      <pose>-2.2477600574493408 7.5068402290344238 1 0 0 1.2947215628796565</pose>
+    </include>
+    <include>
+      <uri>model://40_tube</uri>
+      <name>40_limit_1</name>
+      <pose>4.2053995132446289 2.0890800952911377 1 0 0 2.7044999804891807</pose>
+    </include>
+    <include>
+      <uri>model://40_tube</uri>
+      <name>40_limit_2</name>
+      <pose>-1.0328397750854492 -6.6423125267028809 1 0 0 -1.9844799896209402</pose>
+    </include>
+    <include>
+      <uri>model://40_tube</uri>
+      <name>40_limit_3</name>
+      <pose>-4.5902000000000003 -1.4249000000000001 1 0 0 2.7662</pose>
+    </include>
+    <light name='sun' type='directional'>
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.10000000000000001 -0.90000000000000002</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.90000000000000002</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+  </world>
+</sdf>
