@@ -114,4 +114,26 @@ and we can run the node:
 ros2 run sign_recognition_py save_training_images
 ```
 
+# Neural network
+
+To label the saved images we just simply have to copy the images to the suitable folder under the `training_images` folder. We distinguish 6 labels:
+- Limit 5
+- Limit 40
+- Limit no
+- Lived place
+- No sign
+- Stop
+
+## Train the neural network
+
+There is a simple python training script in the package, called `train_network.py`.
+First, navigate to the right folder then run the script:
+
+```bash
+cd ~/ros2-sign-recognition/src/sign_recognition_py/sign_recognition_py/
+python train_network.py
+```
+
+
+
 
