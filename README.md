@@ -134,6 +134,8 @@ cd ~/ros2-sign-recognition/src/sign_recognition_py/sign_recognition_py/
 python train_network.py
 ```
 
+Let's see the results:
 
+![model_training.png](src/sign_recognition_py/network_model/model_training.png)
 
 
