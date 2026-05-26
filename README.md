@@ -14,14 +14,12 @@ The task is to simulate a robot with autonomous driving with additional capabili
 ## How to use this project repository
 
 1. Change directory to `$USER`'s home folder and clone the repo
-   
    ```bash
    cd;
    git clone https://github.com/barnus877/ros2-sign-recognition;
    ```
 
 2. To run the project paste the following code into the terminal
-   
    ```bash
    cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
    ```
@@ -48,6 +46,7 @@ The task is to simulate a robot with autonomous driving with additional capabili
      <pose>-1.2731360914953953 0.024185007175546058 0 0 0 0</pose>
    </include>
    ```
+
    with relative path `model://`
    ```bash
    <include>
@@ -58,7 +57,6 @@ The task is to simulate a robot with autonomous driving with additional capabili
    ```
 
 2. Delete `turtlebot3_burger`
-   
    ```bash
    <include>
           <uri>file:///home/$USER/ros2_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/models/turtlebot3_burger</uri>
@@ -106,8 +104,12 @@ class ImageSubscriber(Node):
         self.save_path = "/home/$USER/ros2-sign-recognition/src/sign_recognition_py/saved_images/"
 ```
 
-If the path is set up correctly we can run the node:
+If the path is set up correctly we can build and source the project:
+```bash
+cd ~/ros2-sign-recognition && colcon build && source install/setup.bash
+```
 
+and we can run the node:
 ```bash
 ros2 run sign_recognition_py save_training_images
 ```

@@ -41,5 +41,5 @@ env/
 ENV/
 
 # Saved images (keep the directory but ignore its contents)
-src/sign_recognition_py/sign_recognition_py/saved_images
-!src/sign_recognition_py/sign_recognition_py/saved_images/.gitkeep
+src/sign_recognition_py/saved_images
+!src/sign_recognition_py/saved_images/.gitkeep
