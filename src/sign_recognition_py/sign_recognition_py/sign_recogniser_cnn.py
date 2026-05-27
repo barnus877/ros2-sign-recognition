@@ -21,7 +21,7 @@ import cv2
 from tensorflow.keras.preprocessing.image import img_to_array
 
 # Target image size used during training (width == height)
-IMAGE_SIZE = 128
+IMAGE_SIZE = 64
 
 
 def preprocess_image(image):
@@ -55,7 +55,7 @@ def preprocess_image(image):
     # Resize to the fixed network input size
     resized = cv2.resize(cropped, (IMAGE_SIZE, IMAGE_SIZE))
 
-    # Convert to RGB for MobileNetV2 preprocessing
+    # Convert to RGB for network preprocessing
     rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
 
     # img_to_array yields (H, W, 3)
@@ -156,8 +156,11 @@ class SignRecogniser(Node):
         # --- Preprocessing (identical to train_network.py) ---
         preprocessed = preprocess_image(self.latest_frame)
 
-        # Add batch dimension: (128, 128, 1) → (1, 128, 128, 1)
+        # Add batch dimension: (64, 64, 3) → (1, 64, 64, 3)
         input_tensor = np.expand_dims(preprocessed, axis=0)
+        
+        # Normalize to [0, 1] range to match training data normalization
+        input_tensor = input_tensor / 255.0
 
         # --- Inference ---
         prediction = np.argmax(self.model(input_tensor, training=False), axis=1)[0]
