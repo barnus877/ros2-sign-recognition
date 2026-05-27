@@ -1,15 +1,9 @@
 # ROS2 Sign Recognition
 
-## Overview
-
-This is a ROS2 project for the Cognitive Robotics Laboratory course of the Mechatronics Engineering MSc of the Budapest University of Technology and Economics created by József Ferenczi, Mór Sas, Máté Horváth, Barnabás Szabó and Dániel Sándor.
-
-The task is to simulate a robot with autonomous driving and additional capabilities of sign or pedestrian recognition.
-
 ## Table of Contents
 - [ROS2 Sign Recognition](#ros2-sign-recognition)
-  - [Overview](#overview)
   - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
   - [Getting started](#getting-started)
   - [How to use Gazebo simulation environment (optional)](#how-to-use-gazebo-simulation-environment-optional)
     - [Add objects to the world](#add-objects-to-the-world)
@@ -25,6 +19,12 @@ The task is to simulate a robot with autonomous driving and additional capabilit
     - [Official ROS2 packages:](#official-ros2-packages)
     - [3rd party packages:](#3rd-party-packages)
     - [The project was based on:](#the-project-was-based-on)
+
+## Overview
+
+This is a ROS2 project for the Cognitive Robotics Laboratory course of the Mechatronics Engineering MSc of the Budapest University of Technology and Economics created by József Ferenczi, Mór Sas, Máté Horváth, Barnabás Szabó and Dániel Sándor.
+
+The task is to simulate a robot with autonomous driving and additional capabilities of sign or pedestrian recognition.
 
 ## Getting started
 
