@@ -1,27 +1,52 @@
-# Setup #
+# ROS2 Sign Recognition
 
-The folder should be added to the home directory, as the ros2-sign-recognition folder will be the project folder. The git ignore automatically skips all build files, only the source is synchronised.
-
-If everything done as sad, then the commands written later work as intended (for building and starting the project)
-
-
-# ros2-sign-recognition #
+## Overview
 
 This is a ROS2 project for the Cognitive Robotics Laboratory course of the Mechatronics Engineering MSc of the Budapest University of Technology and Economics created by József Ferenczi, Mór Sas, Máté Horváth, Barnabás Szabó and Dániel Sándor.
 
-The task is to simulate a robot with autonomous driving with additional capabilities of sign or pedestrian recognition.
+The task is to simulate a robot with autonomous driving and additional capabilities of sign or pedestrian recognition.
 
-## How to use this project repository
+## Table of Contents
+- [ROS2 Sign Recognition](#ros2-sign-recognition)
+  - [Overview](#overview)
+  - [Table of Contents](#table-of-contents)
+  - [Getting started](#getting-started)
+  - [How to use Gazebo simulation environment (optional)](#how-to-use-gazebo-simulation-environment-optional)
+    - [Add objects to the world](#add-objects-to-the-world)
+    - [How to save world.sdf file](#how-to-save-worldsdf-file)
+    - [Update launch file](#update-launch-file)
+  - [How to start the line following algorithm](#how-to-start-the-line-following-algorithm)
+  - [Save training images (optional)](#save-training-images-optional)
+- [Neural network for sign recognition](#neural-network-for-sign-recognition)
+  - [Train the neural network (optional)](#train-the-neural-network-optional)
+  - [Prepare the environment](#prepare-the-environment)
+  - [Usage](#usage)
+  - [ROS2 packages used in the project](#ros2-packages-used-in-the-project)
+    - [Official ROS2 packages:](#official-ros2-packages)
+    - [3rd party packages:](#3rd-party-packages)
+    - [The project was based on:](#the-project-was-based-on)
 
-1. Change directory to your `$USER`'s home folder and clone the repository
+## Getting started
+
+1. Change directory to your `$USER`'s home folder and clone the repository:
    ```bash
    cd;
    git clone https://github.com/barnus877/ros2-sign-recognition;
    ```
 
-2. To run the project paste the following code into the terminal
+2. To run the [Gazebo simulation](#how-to-use-gazebo-simulation-environment), paste the following code into the terminal:
    ```bash
    cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
+   ```
+
+3. To run the [line following algorithm](#how-to-start-the-line-following-algorithm), paste the following code into a new terminal:
+   ```bash
+   cd ~/ros2-sign-recognition && source install/setup.bash && ros2 run sign_recognition_py line_follower
+   ```
+
+4. To run the [sign recognition node](#neural-network-for-sign-recognition), paste the following code into a new terminal:
+   ```bash
+   cd ~/ros2-sign-recognition && source install/setup.bash && ros2 run sign_recognition_py sign_recogniser
    ```
 
 ## How to use Gazebo simulation environment (optional)
@@ -78,7 +103,7 @@ world_arg = DeclareLaunchArgument(
 
 ## How to start the line following algorithm
 
-1. Run the project according to the description above: [How to use this project repository](#how-to-use-this-project-repository)
+1. Run the project according to the description above: [Getting started](#getting-started)
 
 2. Paste the following code into a new terminal
    ```bash
@@ -168,4 +193,18 @@ To adjust the evaluation rate at runtime:
 ```bash
 ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
 ```
+
+## ROS2 packages used in the project
+
+### Official ROS2 packages:
+- [turtlebot3_gazebo](https://wiki.ros.org/turtlebot3_gazebo)
+- [ros_gz_sim](https://github.com/gazebosim/ros_gz)
+
+### 3rd party packages:
+- [mogi_trajectory_server](https://github.com/MOGI-ROS/mogi_trajectory_server)
+
+### The project was based on:
+- [Week-1-8-Cognitive-robotics](https://github.com/MOGI-ROS/Week-1-8-Cognitive-robotics)
+
+
 
