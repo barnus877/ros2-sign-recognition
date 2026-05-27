@@ -134,6 +134,11 @@ If the path is set up correctly we can build, source the project and run the nod
 cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 run sign_recognition_py save_training_images
 ```
 
+Run the manual teleoperation node:
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
 # Neural network for sign recognition
 
 To label the saved images we just simply have to copy the images to the suitable folder under the `training_images` folder. We distinguish 6 labels:
