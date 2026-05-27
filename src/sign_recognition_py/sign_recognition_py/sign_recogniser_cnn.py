@@ -4,7 +4,6 @@ from sensor_msgs.msg import CompressedImage
 from cv_bridge import CvBridge
 from ament_index_python.packages import get_package_share_directory
 
-from image_preprocessing import preprocess_image, IMAGE_SIZE
 from tensorflow.keras.models import load_model
 from tensorflow.compat.v1 import InteractiveSession
 from tensorflow.compat.v1 import ConfigProto
@@ -16,6 +15,51 @@ import json
 import cv2
 import numpy as np
 import time
+
+
+import cv2
+from tensorflow.keras.preprocessing.image import img_to_array
+
+# Target image size used during training (width == height)
+IMAGE_SIZE = 128
+
+
+def preprocess_image(image):
+    """
+    Preprocess an image from the simulated gray environment.
+
+    Pipeline
+    --------
+    1. Crop the upper-right quadrant.
+       All road signs are located in that region.
+    2. Keep in color (BGR/RGB) instead of grayscale so that the neural
+       network can distinguish red rings of signs from the gray environment.
+    3. Resize to the fixed network input size (``IMAGE_SIZE``).
+
+    Returns
+    -------
+    numpy.ndarray
+        Float32 array of shape ``(IMAGE_SIZE, IMAGE_SIZE, 3)`` with pixel
+        values in [0, 255].
+    """
+    h, w = image.shape[:2]
+
+    # Crop upper-right quadrant
+    # Signs are generally in the top-right quarter of the image
+    y_start = 0
+    y_end = h // 2
+    x_start = w // 2
+    x_end = w
+    cropped = image[y_start:y_end, x_start:x_end]
+
+    # Resize to the fixed network input size
+    resized = cv2.resize(cropped, (IMAGE_SIZE, IMAGE_SIZE))
+
+    # Convert to RGB for MobileNetV2 preprocessing
+    rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
+
+    # img_to_array yields (H, W, 3)
+    return img_to_array(rgb)
 
 
 # Class index → human-readable label (matching train_network.py mapping)

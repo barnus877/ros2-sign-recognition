@@ -13,7 +13,7 @@ The task is to simulate a robot with autonomous driving with additional capabili
 
 ## How to use this project repository
 
-1. Change directory to `$USER`'s home folder and clone the repo
+1. Change directory to your `$USER`'s home folder and clone the repository
    ```bash
    cd;
    git clone https://github.com/barnus877/ros2-sign-recognition;
@@ -24,7 +24,7 @@ The task is to simulate a robot with autonomous driving with additional capabili
    cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 launch sign_recognition_bringup world_teleopt.launch.py 
    ```
 
-## How to use Gazebo simulation
+## How to use Gazebo simulation environment (optional)
 
 ### Add objects to the world
 
@@ -85,7 +85,7 @@ world_arg = DeclareLaunchArgument(
    cd ~/ros2-sign-recognition && source install/setup.bash && ros2 run sign_recognition_py line_follower
    ```
 
-## Save training images
+## Save training images (optional)
 
 Run the `save_training_images` node that can save training images by pressing the `s` key, but before that, make sure that `self.save_path` is set to your own directory by changing `$USER` in the node:
 
@@ -109,7 +109,7 @@ If the path is set up correctly we can build, source the project and run the nod
 cd ~/ros2-sign-recognition && colcon build && source install/setup.bash && ros2 run sign_recognition_py save_training_images
 ```
 
-# Neural network
+# Neural network for sign recognition
 
 To label the saved images we just simply have to copy the images to the suitable folder under the `training_images` folder. We distinguish 6 labels:
 - Limit 5
@@ -119,7 +119,13 @@ To label the saved images we just simply have to copy the images to the suitable
 - No sign
 - Stop
 
-## Train the neural network
+## Train the neural network (optional)
+
+The `sign_recognition_py` package already has a trained network in the `network_model` folder that is ready to use. This model was trained using the following Tensorflow and Keras version:
+```
+Tensorflow version: 2.18.0
+Keras version: 3.14.1
+```
 
 There is a simple python training script in the package, called `train_network.py`.
 First, navigate to the right folder then run the script:
@@ -132,4 +138,34 @@ Let's see the results:
 
 ![model_training.png](src/sign_recognition_py/network_model/model_training.png)
 
+## Prepare the environment
+
+```bash
+# 1. cd into the project's root folder
+cd ~/ros2-sign-recognition/
+
+# 2. Install colcon into your active virtual environment
+python3 -m pip install colcon-common-extensions
+
+# 3. Clear out the old system-python-linked builds
+rm -rf build/ install/ log/
+
+# 4. Rebuild the workspace (now colcon will use your tf environment's Python)
+colcon build --symlink-install
+
+# 5. Source the built workspace
+source install/setup.bash
+```
+
+## Usage
+
+After rebuilding with colcon build, run:
+```bash
+cd ~/ros2-sign-recognition && source install/setup.bash && ros2 run sign_recognition_py sign_recogniser
+```
+
+To adjust the evaluation rate at runtime:
+```bash
+ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
+```
 
