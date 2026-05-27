@@ -15,10 +15,11 @@
   - [Train the neural network (optional)](#train-the-neural-network-optional)
   - [Prepare the environment](#prepare-the-environment)
   - [Usage](#usage)
-  - [ROS2 packages used in the project](#ros2-packages-used-in-the-project)
-    - [Official ROS2 packages:](#official-ros2-packages)
-    - [3rd party packages:](#3rd-party-packages)
-    - [The project was based on:](#the-project-was-based-on)
+- [Pictures taken during the development process](#pictures-taken-during-the-development-process)
+- [ROS2 packages used in the project](#ros2-packages-used-in-the-project)
+  - [Official ROS2 packages](#official-ros2-packages)
+  - [3rd party packages](#3rd-party-packages)
+  - [The project was based on the following guide](#the-project-was-based-on-the-following-guide)
 
 ## Overview
 
@@ -199,16 +200,31 @@ To adjust the evaluation rate at runtime:
 ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
 ```
 
-## ROS2 packages used in the project
+# Pictures taken during the development process
 
-### Official ROS2 packages:
+1. First, we started with creating the map and adding the signs to it in Blender:
+   ![blender_palya.png](assets/blender_palya.png)
+
+   ![blender_stop.png](assets/blender_stop.png)
+
+2. After that, we imported the map into Gazebo simulation:
+   ![gazebo_burgir.png](assets/gazebo_burgir.png)
+
+   ![gazebo_sign.png](assets/gazebo_sign.png)
+
+3. Lastly, we trained the neural network for sign recognition and tested it in the simulation:
+   ![model_training.png](src/sign_recognition_py/network_model/model_training.png)
+
+# ROS2 packages used in the project
+
+## Official ROS2 packages
 - [turtlebot3_gazebo](https://wiki.ros.org/turtlebot3_gazebo)
 - [ros_gz_sim](https://github.com/gazebosim/ros_gz)
 
-### 3rd party packages:
+## 3rd party packages
 - [mogi_trajectory_server](https://github.com/MOGI-ROS/mogi_trajectory_server)
 
-### The project was based on:
+## The project was based on the following guide
 - [Week-1-8-Cognitive-robotics](https://github.com/MOGI-ROS/Week-1-8-Cognitive-robotics)
 
 
