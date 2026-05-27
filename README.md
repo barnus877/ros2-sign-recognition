@@ -11,15 +11,15 @@
     - [Update launch file](#update-launch-file)
   - [How to start the line following algorithm](#how-to-start-the-line-following-algorithm)
   - [Save training images (optional)](#save-training-images-optional)
-- [Neural network for sign recognition](#neural-network-for-sign-recognition)
-  - [Train the neural network (optional)](#train-the-neural-network-optional)
-  - [Prepare the environment](#prepare-the-environment)
-  - [Usage](#usage)
-- [Pictures taken during the development process](#pictures-taken-during-the-development-process)
-- [ROS2 packages used in the project](#ros2-packages-used-in-the-project)
-  - [Official ROS2 packages](#official-ros2-packages)
-  - [3rd party packages](#3rd-party-packages)
-  - [The project was based on the following guide](#the-project-was-based-on-the-following-guide)
+  - [Neural network for sign recognition](#neural-network-for-sign-recognition)
+    - [Train the neural network (optional)](#train-the-neural-network-optional)
+    - [Prepare the environment](#prepare-the-environment)
+    - [Usage of the sign recognition node](#usage-of-the-sign-recognition-node)
+  - [Pictures taken during the development process](#pictures-taken-during-the-development-process)
+  - [ROS2 packages used in the project](#ros2-packages-used-in-the-project)
+    - [Official ROS2 packages](#official-ros2-packages)
+    - [3rd party packages](#3rd-party-packages)
+    - [The project was based on the following guide](#the-project-was-based-on-the-following-guide)
 
 ## Overview
 
@@ -140,7 +140,7 @@ Run the manual teleoperation node:
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-# Neural network for sign recognition
+## Neural network for sign recognition
 
 To label the saved images we just simply have to copy the images to the suitable folder under the `training_images` folder. We distinguish 6 labels:
 - Limit 5
@@ -150,7 +150,7 @@ To label the saved images we just simply have to copy the images to the suitable
 - No sign
 - Stop
 
-## Train the neural network (optional)
+### Train the neural network (optional)
 
 The `sign_recognition_py` package already has a trained network in the `network_model` folder that is ready to use. This model was trained using the following Tensorflow and Keras version:
 ```
@@ -169,7 +169,7 @@ Let's see the results:
 
 ![model_training.png](src/sign_recognition_py/network_model/model_training.png)
 
-## Prepare the environment
+### Prepare the environment
 
 ```bash
 # 1. cd into the project's root folder
@@ -188,7 +188,7 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 
-## Usage
+### Usage of the sign recognition node
 
 After rebuilding with colcon build, run:
 ```bash
@@ -200,7 +200,7 @@ To adjust the evaluation rate at runtime:
 ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
 ```
 
-# Pictures taken during the development process
+## Pictures taken during the development process
 
 1. First, we started with creating the map and adding the signs to it in Blender:
    ![blender_palya.png](assets/blender_palya.png)
@@ -215,16 +215,16 @@ ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
 3. Lastly, we trained the neural network for sign recognition and tested it in the simulation:
    ![model_training.png](src/sign_recognition_py/network_model/model_training.png)
 
-# ROS2 packages used in the project
+## ROS2 packages used in the project
 
-## Official ROS2 packages
+### Official ROS2 packages
 - [turtlebot3_gazebo](https://wiki.ros.org/turtlebot3_gazebo)
 - [ros_gz_sim](https://github.com/gazebosim/ros_gz)
 
-## 3rd party packages
+### 3rd party packages
 - [mogi_trajectory_server](https://github.com/MOGI-ROS/mogi_trajectory_server)
 
-## The project was based on the following guide
+### The project was based on the following guide
 - [Week-1-8-Cognitive-robotics](https://github.com/MOGI-ROS/Week-1-8-Cognitive-robotics)
 
 
