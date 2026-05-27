@@ -1,5 +1,5 @@
 # import the necessary packages
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import Activation, Dense, Conv2D, MaxPooling2D, Dropout, BatchNormalization, GlobalAveragePooling2D
 from tensorflow.keras.optimizers import Adam
@@ -34,6 +34,9 @@ CLASS_LABELS = {
     4: 'no_sign',
     5: 'stop',
 }
+
+# Set to True to continue training from the best previously saved model
+CONTINUE_TRAINING = False
 
 def preprocess_image(image):
     """
@@ -142,13 +145,28 @@ class_weight = {
 
 print("[INFO] Class weights:", class_weight)
 
-EPOCHS = 50
-INIT_LR = 0.001
+EPOCHS = 150
+if CONTINUE_TRAINING:
+    INIT_LR = 0.0001
+else:
+    INIT_LR = 0.001
 BS = 32
 
 print("[INFO] compiling model...")
 input_shape = (IMAGE_SIZE, IMAGE_SIZE, 3)
-model = build_model(input_shape, NUM_CLASSES)
+
+if CONTINUE_TRAINING:
+    checkpoint_filepath = "..//network_model//model.best.keras"
+    if os.path.exists(checkpoint_filepath):
+        print("[INFO] Loading previously saved best model for continued training...")
+        model = load_model(checkpoint_filepath)
+    else:
+        print("[WARN] Best model checkpoint not found, building new model...")
+        model = build_model(input_shape, NUM_CLASSES)
+else:
+    print("[INFO] Building new model...")
+    model = build_model(input_shape, NUM_CLASSES)
+
 opt = Adam(learning_rate=INIT_LR)
 model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
  
@@ -158,7 +176,11 @@ os.makedirs("..//network_model", exist_ok=True)
 checkpoint_filepath = "..//network_model//model.best.keras"
 checkpoint = ModelCheckpoint(checkpoint_filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', patience=5, verbose=1, factor=0.5, min_lr=1e-6)
-early_stopping = EarlyStopping(monitor='val_loss', patience=15, verbose=1, restore_best_weights=True)
+
+if CONTINUE_TRAINING:
+    early_stopping = EarlyStopping(monitor='val_loss', patience=50, verbose=1, restore_best_weights=True)
+else:
+    early_stopping = EarlyStopping(monitor='val_loss', patience=15, verbose=1, restore_best_weights=True)
 
 callbacks_list = [reduce_lr, checkpoint, early_stopping]
 
