@@ -80,7 +80,7 @@
     <include>
       <uri>model://5_tube</uri>
       <name>limit_5_3</name>
-      <pose>-5.88239 3.01337 1 0 0 1.57</pose>
+      <pose>-5.88239 2.98 1 0 0 1.57</pose>
     </include>
     <include>
       <uri>model://stop_tube</uri>
@@ -121,6 +121,11 @@
       <uri>model://40_tube</uri>
       <name>40_limit_3</name>
       <pose>-4.80599 -1.42458 1 0 0 3.14</pose>
+    </include>
+    <include>
+      <uri>model://40_tube</uri>
+      <name>40_limit_4</name>
+      <pose>4.85 0.31 1 0 0 0</pose>
     </include>
     
 

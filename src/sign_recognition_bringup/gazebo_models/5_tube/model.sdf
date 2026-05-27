@@ -22,14 +22,14 @@
           </mesh>
         </geometry>
       </visual>
-      <collision name="collision">
+      <!--<collision name="collision">
         <geometry>
           <mesh>
             <uri>model://meshes/5_tube.glb</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
-      </collision>
+      </collision>-->
     </link>
   </model>
 </sdf>
