@@ -205,6 +205,9 @@ ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
 1. First, we started with creating the map and adding the signs to it in Blender:
    ![blender_palya.png](assets/blender_palya.png)
 
+   These are the sources for the road signs:
+   [Speed limit road signs wikipedia site](https://commons.wikimedia.org/wiki/Speed_limit_road_signs) and 
+   [Road signs in Hungary wikipedia site](https://en.wikipedia.org/wiki/Road_signs_in_Hungary)
    ![blender_stop.png](assets/blender_stop.png)
 
 2. After that, we imported the map into Gazebo simulation:
