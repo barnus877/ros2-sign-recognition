@@ -16,6 +16,7 @@
     - [Prepare the environment](#prepare-the-environment)
     - [Usage of the sign recognition node](#usage-of-the-sign-recognition-node)
   - [Pictures taken during the development process](#pictures-taken-during-the-development-process)
+  - [Video of the final result](#video-of-the-final-result)
   - [ROS2 packages used in the project](#ros2-packages-used-in-the-project)
     - [Official ROS2 packages](#official-ros2-packages)
     - [3rd party packages](#3rd-party-packages)
@@ -217,6 +218,10 @@ ros2 run sign_recognition_py sign_recogniser --ros-args -p eval_interval:=0.5
 
 3. Lastly, we trained the neural network for sign recognition and tested it in the simulation:
    ![model_training.png](src/sign_recognition_py/network_model/model_training.png)
+
+## Video of the final result
+
+[![ROS2 Sign Recognition](https://img.youtube.com/vi/9n8sXo7l5jE/0.jpg)](https://youtu.be/dQHhk9ZASHI)
 
 ## ROS2 packages used in the project
 
